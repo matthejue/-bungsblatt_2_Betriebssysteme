@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[parfill]{parskip}
+\usepackage{enumitem}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, linkcolor=cyan, filecolor=cyan, urlcolor=cyan, citecolor=cyan]{hyperref}
+
+% \newenvironment{adjustedminipage}[1][\textwidth]
+%   {\vspace{-1cm}\begin{minipage}{#1}}
+%   {\end{minipage}\vspace{-1em}}
+\newenvironment{adjustedminipage}[1]
+  {\vspace{0.15cm}\begin{minipage}{#1}}
+  {\end{minipage}}
+
+\begin{document}
+\textcolor{red}{Unbedingt vor Bearbeitung des Blattes lesen:}
+
+Bitte benutzen Sie für alle RETI-Aufgaben den RETI-Interpreter\footnote{Falls irgndwas nicht funktioniert ist Jürgen dran Schuld.} von
+
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+    \url{https://github.com/matthejue/RETI-interpreter}
+	\end{adjustedminipage}
+\end{center}
+
+Der RETI-Interpreter ist dazu in der Lage, die \textbf{Syntax} Ihres RETI-Programms zu überprüfen.
+
+Im weiteren Verlauf der Vorlesung werden wir feststellen, dass der RETI-Interpreter das Programm auch ausführen kann—d.h. er zeigt Speicher- und Registerinhalte nach Ausführung einer Folge von Befehlen an. Dazu später noch mehr.
+
+Bitte \textbf{installieren} Sie den RETI-Interpreter entsprechend der Anleitung im Forum.
+
+Des Weiteren \textbf{benutzen} Sie den RETI-Interpreter \textbf{auf diesem} Übungsblatt für (\textbf{Aufgabe 2}) folgendermaßen:
+
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+		\begin{verbatim}
+$ bin/reti_interpreter_main programm.reti
+    \end{verbatim}
+	\end{adjustedminipage}
+\end{center}
+
+	im Verzeichnis oder, falls Sie den RETI-Interpreter installiert haben, einfach per
+
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+		\begin{verbatim}
+$ reti_interpreter programm.reti
+    \end{verbatim}
+	\end{adjustedminipage}
+\end{center}
+
+Denken Sie daran, dass Ihr Programm programm.reti immer mit einem
+
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+		\begin{verbatim}
+JUMP 0
+    \end{verbatim}
+	\end{adjustedminipage}
+\end{center}
+
+abgeschlossen sein muss.
+Zunächst mal sind wir nur an der \textbf{Syntax-Überprüfung} interessiert. Wenn es keine Fehler in der Ausgabe des RETI-Interpreters gibt, ist Ihr Programm aus Aufgabe 2) syntaktisch korrekt.
+
+\textbf{\textcolor{red}{Bitte überprüfen Sie dies!}}
+
+\textbf{Aufgabe 2} (4+2 Punkte)
+
+In der Vorlesung haben Sie eine veränderte Form der aus TI bekannten ReTI kennengelernt, die um essentielle hardwaremäßige Grundlagen zur Implementierung eines Betriebssystems erweitert wurde. Unter anderem enthält die ReTI nun ein Register \verb|SP| in dem der \verb|Stack-Pointer| abgelegt wird sowie zwei Erweiterungen des \verb|JUMP|-Befehls \verb|INT i| und \verb|RTI| zur Behandlung von Interrupts.
+
+\begin{enumerate}[label=\alph*)]
+	\item Nehmen Sie an, dass SP auf die erste Speicherzelle oberhalb des Stacks zeigt, d.h. wenn der aktuelle Stack in \verb|M[n], ..., M[n+m]| abgelegt ist, dann gilt \verb|<SP> = n-1| (und beim nächsten push soll dann \verb|M[n-1]| verwendet werden). Diese Eigenschaft soll immer erhalten bleiben. Geben Sie eine Implementierung unter Benutzung des erweiterten ReTI Befehlssatzes aus der Vorlesung für die Stack-Operationen \verb|push()| und \verb|pop()| an. Hierbei soll bei \verb|push()| der Inhalt des Akkumulators \verb|ACC| auf den Stack gelegt werden und bei \verb|pop()| der oberste Eintrag des Stack in den Akkumulator geschrieben werden. Gehen Sie davon aus, dass Sie den Stack beliebig befüllen bzw. leeren können und ignorieren Sie die Fehlerbehandlung (z.B. ‘stack overflow’).
+	\item Warum mussten für die Interrupt-Behandlung die beiden atomaren Befehle \verb|INT i| und \verb|RTI| eingeführt werden? Weshalb können diese nicht einfach durch den restlichen Befehlssatz implementiert werden?
+\end{enumerate}
+\end{document}
