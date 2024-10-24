@@ -1,4 +1,4 @@
-IVTE 1 # INT 0: Print a string stored in memory over UART, ACC contains start address of string
+IVTE 1 # INT 0: Print a string stored in memory over UART, IN1 contains start address of the string
 # b)
 SUBI SP 3 # == INT 0 ==
 STOREIN SP DS 1 
