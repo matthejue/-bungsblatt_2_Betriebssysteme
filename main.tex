@@ -27,9 +27,9 @@ Der RETI-Interpreter ist dazu in der Lage, die RETI-Befehle eines in einer \verb
 
 Mithilfe der Kommandozeilenoption \verb|-d| ist der RETI-Interpreter ebenfalls in der Lage das Programm zu \textbf{debuggen}, d.h. er zeigt die Speicher- und Registerinhalte nach Ausführung eines jeden Befels an, zwischen denen der Benutzer sich mittels \verb|n| und dann \verb|Enter| bewegen kann. Wird \verb|INT 3| in das RETI-Programm geschrieben stellt dies einen Breakpoint dar, zu dem mittels \verb|c| und dann \verb|Enter| gesprungen werden kann. In der \textbf{neusten Version} der RETI-Interpreters stehen alle Aktionen, die Sie in diesem Debug-Modus ausführen können in der untersten Zeile des Text-User-Interfaces (TUI).
 
-Mithilfe der Kommandozeilenoption \verb|-i| ist er in der Lage die RETI-Befehle für \textbf{Interrupt Service Routinen} aus einer Datei \verb|interrupt_service_routines.reti| herauszulesen und an den Anfang des simulierten SRAM, vor das geladene Programm aus \verb|programm.reti| zu schreiben. Mithilfe von \verb|INT i| kann wie in der Vorlesung erklärt an den Anfang jeder dieser Interrupt Service Routinen \verb|i| gesprungen werden. Mittles \verb|RTI| kann am Ende einer Interrupt Service Routine wieder an die nächste Stelle im ursprünglichen Programm zurückgesprungen werden, an der dieses mittels \verb|INT i| unterbrochen wurde. Mittels der Direktive \verb|IVTE i| können \textbf{Einträge einer Interrupt Vector Tabelle} mit der korrekten Startadresse einer Interrupt Sevice Routine erstellt werden. Die SRAM Konstante wird automatisch auf \verb|i| draufaddiert.
+Mithilfe der Kommandozeilenoption \verb|-i| ist der RETI-Interpreter in der Lage die RETI-Befehle für \textbf{Interrupt Service Routinen} aus einer Datei \verb|interrupt_service_routines.reti| herauszulesen und an den Anfang des simulierten SRAM, vor das geladene Programm aus \verb|programm.reti| zu schreiben. Mithilfe von \verb|INT i| kann wie in der Vorlesung erklärt an den Anfang jeder dieser Interrupt Service Routinen \verb|i| gesprungen werden. Mittels \verb|RTI| kann am Ende einer Interrupt Service Routine wieder an die nächste Stelle im ursprünglichen Programm zurückgesprungen werden, an der dieses mittels \verb|INT i| unterbrochen wurde. Mittels der Direktive \verb|IVTE i| können \textbf{Einträge einer Interrupt Vector Tabelle} mit der korrekten Startadresse einer Interrupt Sevice Routine erstellt werden. Die SRAM Konstante wird automatisch auf \verb|i| draufaddiert.
 
-{\LARGE \textbf{\textcolor{red}{Bitte}}} \textbf{installieren} Sie den RETI-Interpreter entsprechend der angepinnten Anleitung im Forum.
+{\LARGE \textbf{\textcolor{red}{Bitte}}} \textbf{installieren} Sie den RETI-Interpreter entsprechend der angepinnten Anleitung im Forum (es gibt eine angehängte PDF und ein verlinktes Youtube-Tutorial).
 
 Des Weiteren \textbf{benutzen} Sie den RETI-Interpreter \textbf{auf diesem} Übungsblatt (für \textbf{Aufgabe 2}) folgendermaßen:
 
@@ -51,7 +51,7 @@ $ reti_interpreter -i interrupt_service_routines.reti -d programm.reti
 	\end{adjustedminipage}
 \end{center}
 
-Denken Sie daran, dass Ihr Programm \verb|programm.reti| immer mit einem
+Denken Sie daran, dass Ihr Programm \verb|programm.reti| mit einem
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
@@ -63,8 +63,8 @@ JUMP 0
 
 abgeschlossen sein muss.
 
-{\LARGE \textbf{\textcolor{red}{Bitte}}} geben Sie die RETI-Codeschnipsel, die ihrer Meinung nach die geforderten Aufgaben lösen in Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti| ab. \verb|programm.reti| ist für den RETI-Code in Aufbabe a) und den RETI-Code, der \verb|INT| ersetzen soll in Aufgabe b) vorgesehen. \verb|interrupt_service_routines.reti| ist für den RETI-Code, der \verb|RTI| ersetzen soll in Aufgabe b) vorgesehen. Separieren Sie die einzelnen Subaufgaben in \verb|programm.reti| mithilfe von Zeilenkommentaren \textcolor{gray}{\texttt{\# a)}}, \textcolor{gray}{\texttt{\# push)}}, \textcolor{gray}{\texttt{\# pop)}}, \textcolor{gray}{\texttt{\# INT Ersatz)}}.\\
-In \verb|interrupt_service_routines.reti| können Sie den Beginn ihres RTI Ersetzungscodes mithilfe von \textcolor{gray}{\texttt{\# RTI Ersatz)}} kenntlich machen. Ihre Antwort auf die Frage in Aufgabe b) kann auch mithilfe mehrerer Zeilenkommentare in Ihrer Datei \verb|programm.reti| angegeben werden oder in Ihrer PDF. Der Teil ihrer Lösung, den Sie in \verb|programm.reti| einreichen sollen, sollten ungefähr wie folgt aussehen:
+{\LARGE \textbf{\textcolor{red}{Bitte}}} geben Sie die RETI-Codeschnipsel, die ihrer Meinung nach die geforderten Aufgaben lösen in Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti| ab. \verb|programm.reti| ist für den RETI-Code in Aufgabe 2a) und den RETI-Code, der \verb|INT| ersetzen soll in Aufgabe 2b) vorgesehen. \verb|interrupt_service_routines.reti| ist für den RETI-Code, der \verb|RTI| ersetzen soll in Aufgabe 2b) vorgesehen. Separieren Sie die einzelnen Subaufgaben in \verb|programm.reti| mithilfe von Zeilenkommentaren \textcolor{gray}{\texttt{\# a)}}, \textcolor{gray}{\texttt{\# push}}, \textcolor{gray}{\texttt{\# pop}}, \textcolor{gray}{\texttt{\# INT Ersatz}}.\\
+In \verb|interrupt_service_routines.reti| können Sie den Beginn ihres RTI Ersetzungscodes mithilfe von \textcolor{gray}{\texttt{\# RTI Ersatz}} kenntlich machen. Ihre Antwort auf die Frage in Aufgabe b) kann auch mithilfe mehrerer Zeilenkommentare in Ihrer Datei \verb|programm.reti| angegeben werden oder in Ihrer PDF. Der Teil ihrer Lösung, den Sie in \verb|programm.reti| einreichen sollen, sollte ungefähr wie folgt aussehen:
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
@@ -78,14 +78,14 @@ RETI-Instructions...
 # b)
 # INT Ersatz
 RETI-Instructions...
+JUMP 0
 # Ihre Antwort auf die Frage in Aufgabe b)
 # für die Sie mehrere Zeilenkommentare verwenden können
-JUMP 0
     \end{verbatim}
 	\end{adjustedminipage}
 \end{center}
 
-Der Teil ihrer Lösung, den Sie in \verb|interrupt_service_routines.reti| einreichen sollen, sollten ungefähr wie folgt aussehen:
+Der Teil ihrer Lösung, den Sie in \verb|interrupt_service_routines.reti| einreichen sollen, sollte ungefähr wie folgt aussehen:
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
