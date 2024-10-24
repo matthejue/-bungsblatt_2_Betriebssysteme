@@ -1,0 +1,86 @@
+# a)
+# Load value
+LOADI ACC 42
+# == Push v1 ==
+STOREIN SP ACC 0
+SUBI SP 1
+# Load value
+LOADI ACC 314159
+# == Push v2 == 
+SUBI SP 1
+STOREIN SP ACC 1
+# == Pop v1 ==
+LOADIN SP ACC 1
+ADDI SP 1
+# == Pop v2 ==
+ADDI SP 1
+LOADIN SP ACC 0
+# b)
+# == Print Hello World over UART ==
+# SAVE DS
+SUBI SP 1
+STOREIN SP DS 1 
+# Save letters for "Hello World" in SRAM
+LOADI ACC 72 # H
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 101 # e
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 108 # l
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 108 # l
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 111 # o
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 32 # " "
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 87 # W
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 111 # o
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 114 # r
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 108 # l
+STOREIN DS ACC 0
+ADDI DS 1 
+LOADI ACC 100 # d
+STOREIN DS ACC 0
+ADDI DS 1 
+# RESTORE DS
+LOADIN SP DS 1 
+ADDI SP 1
+MOVE DS IN2
+# Breakpoint
+INT 3
+# == INT Ersatz ==
+STOREIN SP PC 0
+SUBI SP 1
+LOADI ACC -2097152 # -2^21
+MULTI ACC 1024 # 2^10
+LOADIN ACC IN1 0
+MOVE IN1 PC
+JUMP 0
+# Grund warum INT und RTI als atomare Befehle implementiert werden: 
+# Ein Interrupt kann zu jedem Zeitpunkt auftreten, daher muss die Reaktion
+# darauf möglichst schnell und bei Interrupts, die nicht-unterbrechbar sein
+# dürfen auch ohne Unterbrechnungen ablaufen. Eine atomare Ausführung eines
+# Befehls wie INT oder IRET garantiert, dass der Übergang Interrupt und die
+# Rückkehr aus diesem effizient ohne vermeidbare Verzögerungen durch
+# zusätzliche Fetch-Phasen und ohne mögliche Unterbrechungen erfolgt, sodass
+# bei Interrupts, die nicht-unterbrechbar sind nicht noch sichergestellt werden
+# muss, dass beim Übergang zum Interrupt keine Unterbrechnung auftreten kann.
+# (Eine Aufteilung von INT und RTI in mehrere Befehle muss bei strikter
+# Befolung von Konventionen zur Sicherung von Registerinhalten usw. beim
+# Auftreten eines Hardwareinterrupts inmitten der Ausführung dieser Befehle
+# nicht zu einem undefinierten Systemzustand führen. Diese Antwort gibt aber
+# trotz allem volle Punktzahl, da die strikte Befolgung von Konventionen zur
+# Sicherung von Registerinhalten in der Aufgabenstellung nicht vorausgesetzt
+# wurde.)

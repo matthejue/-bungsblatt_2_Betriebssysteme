@@ -92,9 +92,10 @@ Der Teil ihrer Lösung, den Sie in \verb|interrupt_service_routines.reti| einrei
 		\begin{verbatim}
 IVTE 1
 # b)
+# Möglicher RETI-Code für eine Interrupt Service Routine (nicht gefordert)
+RETI-Instructions...
 # RTI Ersatz
 RETI-Instructions...
-RTI
     \end{verbatim}
 	\end{adjustedminipage}
 \end{center}
@@ -107,6 +108,6 @@ In der Vorlesung haben Sie eine veränderte Form der aus TI bekannten RETI kenne
 
 \begin{enumerate}[label=\alph*)]
 	\item Nehmen Sie an, dass SP auf die erste Speicherzelle oberhalb des Stacks zeigt, d.h. wenn der aktuelle Stack in \verb|M[n], ..., M[n+m]| abgelegt ist, dann gilt \verb|<SP> = n-1| (und beim nächsten push soll dann \verb|M[n-1]| verwendet werden). Diese Eigenschaft soll immer erhalten bleiben. Geben Sie eine Implementierung unter Benutzung des erweiterten ReTI Befehlssatzes aus der Vorlesung für die Stack-Operationen \verb|push()| und \verb|pop()| an. Hierbei soll bei \verb|push()| der Inhalt des Akkumulators \verb|ACC| auf den Stack gelegt werden und bei \verb|pop()| der oberste Eintrag des Stack in den Akkumulator geschrieben werden. Gehen Sie davon aus, dass Sie den Stack beliebig befüllen bzw. leeren können und ignorieren Sie die Fehlerbehandlung (z.B. ‘stack overflow’).
-	\item Implementieren Sie die beiden atomaren Befehle \verb|INT i| und \verb|RTI| mithilfe der anderen RETI-Befehle als Teil der Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti|. \verb|INT i| soll als Teil der Datei \verb|programm.reti| implementiert werden und \verb|RTI| als Teil der Datei \verb|interrupt_service_routines.reti|, wie es in dem Einführungstext am Anfang dieses Übungsblattes erklärt wurde. Warum funktioniert diese Lösung nicht und warum müssen trotz allem für die Interrupt-Behandlung die beiden atomaren Befehle \verb|INT i| und \verb|RTI| eingeführt werden? % Weshalb können diese nicht einfach durch den restlichen Befehlssatz implementiert werden?
+	\item Implementieren Sie die beiden atomaren Befehle \verb|INT i| und \verb|RTI| mithilfe der anderen RETI-Befehle als Teil der Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti|. \verb|INT i| soll als Teil der Datei \verb|programm.reti| implementiert werden und \verb|RTI| als Teil der Datei \verb|interrupt_service_routines.reti|, wie es in dem Einführungstext am Anfang dieses Übungsblattes erklärt wurde. Was könnte ein Grund sein, warum in Prozessorarchitekturen für die Interrupt-Behandlung meist atomare Befehle, die ähnlich zu \verb|INT i| und \verb|RTI| sind eingeführt werden? % Weshalb können diese nicht einfach durch den restlichen Befehlssatz implementiert werden?
 \end{enumerate}
 \end{document}
