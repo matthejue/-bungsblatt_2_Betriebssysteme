@@ -15,7 +15,7 @@
 \begin{document}
 \textcolor{red}{Unbedingt vor Bearbeitung des Blattes lesen:}
 
-Bitte benutzen Sie für alle RETI-Aufgaben den RETI-Interpreter\footnote{Falls irgndwas nicht funktioniert ist Jürgen dran Schuld.} von
+{\LARGE \textbf{\textcolor{red}{Bitte}}} benutzen Sie für alle RETI-Aufgaben die \textbf{neuste Version} des RETI-Interpreters\footnote{Die aktuelle Version ist \texttt{v1.0.1}.} von
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
@@ -23,18 +23,20 @@ Bitte benutzen Sie für alle RETI-Aufgaben den RETI-Interpreter\footnote{Falls i
 	\end{adjustedminipage}
 \end{center}
 
-Der RETI-Interpreter ist dazu in der Lage, die \textbf{Syntax} Ihres RETI-Programms zu überprüfen.
+Der RETI-Interpreter ist dazu in der Lage, die RETI-Befehle eines in einer \verb|.reti|-Datei angebenen RETI-Programms zu interpretieren, d.h. er kann das RETI-Programm \textbf{ausführen}, indem er die RETI-Befehle aus einer Datei \verb|programm.reti| herausliest und in den simulierten SRAM schreibt und mithilfe eines autogenerierten EPROM-Startprogramms, dass zu Beginn ausgeführt wird an den Start dieses Programms springt.
 
-Im weiteren Verlauf der Vorlesung werden wir feststellen, dass der RETI-Interpreter das Programm auch ausführen kann—d.h. er zeigt Speicher- und Registerinhalte nach Ausführung einer Folge von Befehlen an. Dazu später noch mehr.
+Mithilfe der Kommandozeilenoption \verb|-d| ist der RETI-Interpreter ebenfalls in der Lage das Programm zu \textbf{debuggen}, d.h. er zeigt die Speicher- und Registerinhalte nach Ausführung eines jeden Befels an, zwischen denen der Benutzer sich mittels \verb|n| und dann \verb|Enter| bewegen kann. Wird \verb|INT 3| in das RETI-Programm geschrieben stellt dies einen Breakpoint dar, zu dem mittels \verb|c| und dann \verb|Enter| gesprungen werden kann. In der \textbf{neusten Version} der RETI-Interpreters stehen alle Aktionen, die Sie in diesem Debug-Modus ausführen können in der untersten Zeile des Text-User-Interfaces (TUI).
 
-Bitte \textbf{installieren} Sie den RETI-Interpreter entsprechend der Anleitung im Forum.
+Mithilfe der Kommandozeilenoption \verb|-i| ist er in der Lage die RETI-Befehle für \textbf{Interrupt Service Routinen} aus einer Datei \verb|interrupt_service_routines.reti| herauszulesen und an den Anfang des simulierten SRAM, vor das geladene Programm aus \verb|programm.reti| zu schreiben. Mithilfe von \verb|INT i| kann wie in der Vorlesung erklärt an den Anfang jeder dieser Interrupt Service Routinen \verb|i| gesprungen werden. Mittles \verb|RTI| kann am Ende einer Interrupt Service Routine wieder an die nächste Stelle im ursprünglichen Programm zurückgesprungen werden, an der dieses mittels \verb|INT i| unterbrochen wurde. Mittels der Direktive \verb|IVTE i| können \textbf{Einträge einer Interrupt Vector Tabelle} mit der korrekten Startadresse einer Interrupt Sevice Routine erstellt werden. Die SRAM Konstante wird automatisch auf \verb|i| draufaddiert.
 
-Des Weiteren \textbf{benutzen} Sie den RETI-Interpreter \textbf{auf diesem} Übungsblatt für (\textbf{Aufgabe 2}) folgendermaßen:
+{\LARGE \textbf{\textcolor{red}{Bitte}}} \textbf{installieren} Sie den RETI-Interpreter entsprechend der angepinnten Anleitung im Forum.
+
+Des Weiteren \textbf{benutzen} Sie den RETI-Interpreter \textbf{auf diesem} Übungsblatt (für \textbf{Aufgabe 2}) folgendermaßen:
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
 		\begin{verbatim}
-$ bin/reti_interpreter_main programm.reti
+$ bin/reti_interpreter_main -i interrupt_service_routines.reti -d programm.reti
     \end{verbatim}
 	\end{adjustedminipage}
 \end{center}
@@ -44,12 +46,12 @@ $ bin/reti_interpreter_main programm.reti
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
 		\begin{verbatim}
-$ reti_interpreter programm.reti
+$ reti_interpreter -i interrupt_service_routines.reti -d programm.reti
     \end{verbatim}
 	\end{adjustedminipage}
 \end{center}
 
-Denken Sie daran, dass Ihr Programm programm.reti immer mit einem
+Denken Sie daran, dass Ihr Programm \verb|programm.reti| immer mit einem
 
 \begin{center}
 	\begin{adjustedminipage}{0.9\textwidth}
@@ -60,16 +62,51 @@ JUMP 0
 \end{center}
 
 abgeschlossen sein muss.
-Zunächst mal sind wir nur an der \textbf{Syntax-Überprüfung} interessiert. Wenn es keine Fehler in der Ausgabe des RETI-Interpreters gibt, ist Ihr Programm aus Aufgabe 2) syntaktisch korrekt.
 
-\textbf{\textcolor{red}{Bitte überprüfen Sie dies!}}
+{\LARGE \textbf{\textcolor{red}{Bitte}}} geben Sie die RETI-Codeschnipsel, die ihrer Meinung nach die geforderten Aufgaben lösen in Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti| ab. \verb|programm.reti| ist für den RETI-Code in Aufbabe a) und den RETI-Code, der \verb|INT| ersetzen soll in Aufgabe b) vorgesehen. \verb|interrupt_service_routines.reti| ist für den RETI-Code, der \verb|RTI| ersetzen soll in Aufgabe b) vorgesehen. Separieren Sie die einzelnen Subaufgaben in \verb|programm.reti| mithilfe von Zeilenkommentaren \textcolor{gray}{\texttt{\# a)}}, \textcolor{gray}{\texttt{\# push)}}, \textcolor{gray}{\texttt{\# pop)}}, \textcolor{gray}{\texttt{\# INT Ersatz)}}.\\
+In \verb|interrupt_service_routines.reti| können Sie den Beginn ihres RTI Ersetzungscodes mithilfe von \textcolor{gray}{\texttt{\# RTI Ersatz)}} kenntlich machen. Ihre Antwort auf die Frage in Aufgabe b) kann auch mithilfe mehrerer Zeilenkommentare in Ihrer Datei \verb|programm.reti| angegeben werden oder in Ihrer PDF. Der Teil ihrer Lösung, den Sie in \verb|programm.reti| einreichen sollen, sollten ungefähr wie folgt aussehen:
 
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+		\begin{verbatim}
+# a)
+LOADI ACC 42
+# push
+RETI-Instructions...
+# pop
+RETI-Instructions...
+# b)
+# INT Ersatz
+RETI-Instructions...
+# Ihre Antwort auf die Frage in Aufgabe b)
+# für die Sie mehrere Zeilenkommentare verwenden können
+JUMP 0
+    \end{verbatim}
+	\end{adjustedminipage}
+\end{center}
+
+Der Teil ihrer Lösung, den Sie in \verb|interrupt_service_routines.reti| einreichen sollen, sollten ungefähr wie folgt aussehen:
+
+\begin{center}
+	\begin{adjustedminipage}{0.9\textwidth}
+		\begin{verbatim}
+IVTE 1
+# b)
+# RTI Ersatz
+RETI-Instructions...
+RTI
+    \end{verbatim}
+	\end{adjustedminipage}
+\end{center}
+
+\vspace{0.5cm}
 \textbf{Aufgabe 2} (4+2 Punkte)
+\vspace{0.5cm}
 
-In der Vorlesung haben Sie eine veränderte Form der aus TI bekannten ReTI kennengelernt, die um essentielle hardwaremäßige Grundlagen zur Implementierung eines Betriebssystems erweitert wurde. Unter anderem enthält die ReTI nun ein Register \verb|SP| in dem der \verb|Stack-Pointer| abgelegt wird sowie zwei Erweiterungen des \verb|JUMP|-Befehls \verb|INT i| und \verb|RTI| zur Behandlung von Interrupts.
+In der Vorlesung haben Sie eine veränderte Form der aus TI bekannten RETI kennengelernt, die um essentielle hardwaremäßige Grundlagen zur Implementierung eines Betriebssystems erweitert wurde. Unter anderem enthält die RETI nun ein Register \verb|SP| in dem der \verb|Stack-Pointer| abgelegt wird sowie zwei Erweiterungen des \verb|JUMP|-Befehls \verb|INT i| und \verb|RTI| zur Behandlung von Interrupts.
 
 \begin{enumerate}[label=\alph*)]
 	\item Nehmen Sie an, dass SP auf die erste Speicherzelle oberhalb des Stacks zeigt, d.h. wenn der aktuelle Stack in \verb|M[n], ..., M[n+m]| abgelegt ist, dann gilt \verb|<SP> = n-1| (und beim nächsten push soll dann \verb|M[n-1]| verwendet werden). Diese Eigenschaft soll immer erhalten bleiben. Geben Sie eine Implementierung unter Benutzung des erweiterten ReTI Befehlssatzes aus der Vorlesung für die Stack-Operationen \verb|push()| und \verb|pop()| an. Hierbei soll bei \verb|push()| der Inhalt des Akkumulators \verb|ACC| auf den Stack gelegt werden und bei \verb|pop()| der oberste Eintrag des Stack in den Akkumulator geschrieben werden. Gehen Sie davon aus, dass Sie den Stack beliebig befüllen bzw. leeren können und ignorieren Sie die Fehlerbehandlung (z.B. ‘stack overflow’).
-	\item Warum mussten für die Interrupt-Behandlung die beiden atomaren Befehle \verb|INT i| und \verb|RTI| eingeführt werden? Weshalb können diese nicht einfach durch den restlichen Befehlssatz implementiert werden?
+	\item Implementieren Sie die beiden atomaren Befehle \verb|INT i| und \verb|RTI| mithilfe der anderen RETI-Befehle als Teil der Dateien \verb|programm.reti| und \verb|interrupt_service_routines.reti|. \verb|INT i| soll als Teil der Datei \verb|programm.reti| implementiert werden und \verb|RTI| als Teil der Datei \verb|interrupt_service_routines.reti|, wie es in dem Einführungstext am Anfang dieses Übungsblattes erklärt wurde. Warum funktioniert diese Lösung nicht und warum müssen trotz allem für die Interrupt-Behandlung die beiden atomaren Befehle \verb|INT i| und \verb|RTI| eingeführt werden? % Weshalb können diese nicht einfach durch den restlichen Befehlssatz implementiert werden?
 \end{enumerate}
 \end{document}
